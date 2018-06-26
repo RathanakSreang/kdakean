@@ -6,11 +6,27 @@ import (
 	"net/http"
 	"time"
 
+	"github.com/asaskevich/govalidator"
 	"github.com/joho/godotenv"
 	"github.com/kdakean/kdakean/db"
+	"github.com/kdakean/kdakean/model"
 )
 
+func CustomValidation(obj interface{}) { // (bool, map[string]string){
+	_, err := govalidator.ValidateStruct(obj)
+	errs := err.(govalidator.Errors)
+	for _, e := range errs {
+		fmt.Println(e)
+	}
+	// return result, errs
+}
 func main() {
+	user := model.User{}
+	// result, err := govalidator.ValidateStruct(user)
+	// fmt.Println(result)
+	// fmt.Println(err)
+	CustomValidation(user)
+	fmt.Println(user)
 	if err := godotenv.Load(); err != nil {
 		log.Fatal(err)
 	}
