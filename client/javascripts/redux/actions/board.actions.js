@@ -29,6 +29,18 @@ export function updateBoard(boardParams) {
   }
 }
 
+export function fetchBoard(boardSlug) {
+  return function(dispatch) {
+    boardService.getBoard(boardSlug, {})
+      .then((response) => {
+        dispatch({type: boardConstants.GET_BOARD_DETAIL_SUCCESS, payload: response.data});
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+  }
+}
+
 export function fetchBoards(options) {
   return function(dispatch) {
     boardService.getBoards(options)
